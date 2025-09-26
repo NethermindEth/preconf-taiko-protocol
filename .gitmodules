@@ -1,0 +1,3 @@
+[submodule "taiko-mono"]
+	path = taiko-mono
+	url = https://github.com/taikoxyz/taiko-mono.git

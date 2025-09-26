@@ -1,0 +1,5 @@
+PRECONF_FILE="./contracts/layer1/preconf/libs/LibPreconfConstants.sol"
+PRECONF_FILE_SHA="55ba58ec27c657bb9796e59cec003d7cb793203c3a3cac0988f4ca8598743758"
+
+NETWORK_FILE="./contracts/shared/libs/LibNetwork.sol"
+NETWORK_FILE_SHA="65c333d2215d450ed32839b8435107ff701b19c83a5623e6901e84774c443865"
