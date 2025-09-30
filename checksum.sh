@@ -3,18 +3,20 @@ set -e
 
 . ./const.sh
 
-CURRENT_CHECKSUM=$(sha256sum "$PRECONF_FILE" | awk '{print $1}')
+check_checksum() {
+    local file=$1
+    local expected_sha=$2
 
-if [ "$CURRENT_CHECKSUM" != "$PRECONF_FILE_SHA" ]; then
-    echo "❌ Checksum mismatch for $PRECONF_FILE. Aborting. Current checksum $CURRENT_CHECKSUM"
-    exit 1
-fi
+    current_sha=$(sha256sum "$file" | awk '{print $1}')
+    if [ "$current_sha" != "$expected_sha" ]; then
+        echo "❌ Checksum mismatch for $file. Aborting. Current checksum $current_sha"
+        exit 1
+    fi
+}
 
-CURRENT_CHECKSUM=$(sha256sum "$NETWORK_FILE" | awk '{print $1}')
-
-if [ "$CURRENT_CHECKSUM" != "$NETWORK_FILE_SHA" ]; then
-    echo "❌ Checksum mismatch for $NETWORK_FILE. Aborting. Current checksum $CURRENT_CHECKSUM"
-    exit 1
-fi
+# Check all files
+check_checksum "$PRECONF_FILE" "$PRECONF_FILE_SHA"
+check_checksum "$NETWORK_FILE" "$NETWORK_FILE_SHA"
+check_checksum "$DEPLOYMENT_SCRIPT_FILE" "$DEPLOYMENT_SCRIPT_FILE_SHA"
 
 echo "✅ Checksum matches. Safe to patch."
