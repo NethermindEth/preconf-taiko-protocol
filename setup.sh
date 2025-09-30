@@ -27,6 +27,6 @@ sed -i "s|^[[:space:]]*uint256 internal constant SECONDS_IN_SLOT = 12;|    uint2
 sed -i "s|^[[:space:]]*uint256 internal constant ETHEREUM_BLOCK_TIME = 12 seconds;|    uint256 internal constant ETHEREUM_BLOCK_TIME = ${DEVNET_SECONDS_IN_SLOT} seconds;|" "$NETWORK_FILE"
 
 # --- Patch deploy script to set Whitelist's operatorChangeDelay and randomnessDelay
-sed -i "s|^[[:space:]]*data: abi.encodeCall(PreconfWhitelist.init, (owner, 2, 2)),|    data: abi.encodeCall(PreconfWhitelist.init, (owner, ${DEVNET_OP_CHANGE_DELAY}, ${DEVNET_RANDOMNESS_DELAY})),|" "$DEPLOYMENT_SCRIPT_FILE"
+sed -i "s|^[[:space:]]*data: abi.encodeCall(PreconfWhitelist.init, (owner, 2, 2))|    data: abi.encodeCall(PreconfWhitelist.init, (owner, ${DEVNET_OP_CHANGE_DELAY}, ${DEVNET_RANDOMNESS_DELAY}))|" "$DEPLOYMENT_SCRIPT_FILE"
 
 echo "✅ Patched with DEVNET constants."
