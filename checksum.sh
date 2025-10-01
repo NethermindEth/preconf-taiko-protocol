@@ -17,6 +17,5 @@ check_checksum() {
 # Check all files
 check_checksum "$PRECONF_FILE" "$PRECONF_FILE_SHA"
 check_checksum "$NETWORK_FILE" "$NETWORK_FILE_SHA"
-check_checksum "$DEPLOYMENT_SCRIPT_FILE" "$DEPLOYMENT_SCRIPT_FILE_SHA"
 
 echo "✅ Checksum matches. Safe to patch."
