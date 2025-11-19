@@ -29,4 +29,7 @@ sed -i "s|^[[:space:]]*uint256 internal constant ETHEREUM_BLOCK_TIME = 12 second
 # --- Patch deploy script remove addOperator call
 sed -i "s|^[[:space:]]*PreconfWhitelist(whitelist).addOperator(proposer, proposer);| |" "$DEPLOYMENT_SCRIPT_FILE"
 
+# --- Patch Inbox forcedInclusionDelay to 768 seconds (2 epochs)
+sed -i "s|^[[:space:]]*forcedInclusionDelay: 0,|    forcedInclusionDelay: 768,|" "$DEVNET_INBOX_FILE"
+
 echo "✅ Patched with DEVNET constants."
