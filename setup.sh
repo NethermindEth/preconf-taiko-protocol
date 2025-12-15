@@ -32,4 +32,7 @@ sed -i "s|^[[:space:]]*PreconfWhitelist(whitelist).addOperator(proposer, propose
 # --- Patch Inbox forcedInclusionDelay to 768 seconds (2 epochs)
 sed -i "s|^[[:space:]]*forcedInclusionDelay: 0,|    forcedInclusionDelay: 768,|" "$DEVNET_INBOX_FILE"
 
+# --- Patch Inbox _RING_BUFFER_SIZE to 100000
+sed -i "s|^[[:space:]]*uint64 private constant _RING_BUFFER_SIZE = 100;|    uint64 private constant _RING_BUFFER_SIZE = 100000;|" "$DEVNET_INBOX_FILE"
+
 echo "✅ Patched with DEVNET constants."
