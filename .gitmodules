@@ -1,3 +1,4 @@
 [submodule "taiko-mono"]
 	path = taiko-mono
 	url = https://github.com/taikoxyz/taiko-mono.git
+	branch = taiko-alethia-protocol-v3.0.0
