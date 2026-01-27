@@ -27,12 +27,12 @@ sed -i "s|^[[:space:]]*uint256 internal constant SECONDS_IN_SLOT = 12;|    uint2
 sed -i "s|^[[:space:]]*uint256 internal constant ETHEREUM_BLOCK_TIME = 12 seconds;|    uint256 internal constant ETHEREUM_BLOCK_TIME = ${DEVNET_SECONDS_IN_SLOT} seconds;|" "$NETWORK_FILE"
 
 # --- Patch deploy script remove addOperator call
-sed -i "s|^[[:space:]]*PreconfWhitelist(whitelist).addOperator(proposer, proposer);| |" "$DEPLOYMENT_SCRIPT_FILE"
+sed -i "s|^[[:space:]]*PreconfWhitelist(whitelist).addOperator(config.proposerAddress, config.proposerAddress);| |" "$DEPLOYMENT_SCRIPT_FILE"
 
 # --- Patch Inbox forcedInclusionDelay to 7680 seconds (20 epochs)
-sed -i "s|^[[:space:]]*forcedInclusionDelay: 0,|    forcedInclusionDelay: 7680,|" "$DEVNET_INBOX_FILE"
+sed -i "s|forcedInclusionDelay: 0 seconds,|forcedInclusionDelay: 7680 seconds,|" "$DEVNET_INBOX_FILE"
 
 # --- Patch Inbox _RING_BUFFER_SIZE to 100000
-sed -i "s|^[[:space:]]*uint64 private constant _RING_BUFFER_SIZE = 100;|    uint64 private constant _RING_BUFFER_SIZE = 100000;|" "$DEVNET_INBOX_FILE"
+sed -i "s|^[[:space:]]*uint48 private constant _RING_BUFFER_SIZE = 100;|    uint48 private constant _RING_BUFFER_SIZE = 100000;|" "$DEVNET_INBOX_FILE"
 
 echo "✅ Patched with DEVNET constants."

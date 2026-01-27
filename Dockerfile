@@ -1,19 +1,27 @@
-FROM node:24
+FROM node:24-slim
 WORKDIR /app
 
-# Copy package.json first for better caching
-COPY ./taiko-mono/packages/protocol/package.json ./
-
-RUN apt-get update && apt-get install -y jq
+# Install system dependencies and clean up in one layer
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    jq \
+    curl \
+    ca-certificates \
+    git && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN git init && \
     curl -L https://foundry.paradigm.xyz | bash && \
     npm install -g pnpm && \
     . ~/.bashrc && \
     foundryup && \
-    forge install
+    forge install && \
+    rm -rf /root/.foundry/cache/* && \
+    rm -rf /tmp/*
 
 ENV PATH="/root/.foundry/bin:$PATH"
+
+COPY ./taiko-mono/packages/protocol/package.json ./
 
 # Copy the rest of the source code (including pnpm-lock.yaml from parent)
 COPY ./taiko-mono/packages/protocol ./
